@@ -1,0 +1,40 @@
+namespace dingo
+asset MainEquipment identified by serial {
+    o String name
+    o String serial
+    o String description
+	--> Component[] components optional
+    --> HistComponent[] HistComponents optional
+    --> Company owner
+}
+
+asset Component identified by serial {
+    o String name
+    o String serial
+    o String description
+    --> Observation[] observations optional
+    --> Company owner
+}
+
+asset HistComponent identified by serial {
+    o String name
+    o String serial
+    o String description
+    --> Observation[] observations optional
+    --> Company owner
+}
+
+asset Observation identified by observationNo {
+    o String observationNo
+    o String title
+    o String description
+}
+
+participant Company identified by companyName {
+    o String companyName
+}
+
+transaction attachComponentToME {
+    -->	MainEquipment equipment
+  	--> Component component
+}

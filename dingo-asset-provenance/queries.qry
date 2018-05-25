@@ -1,0 +1,57 @@
+/**
+ * Test Queries
+ * NOTE: to concatenate input variables and the reference prefix
+ * it may have to be done in the .js file
+ */
+
+query selectCompanies {
+  description: "Select all companies"
+  statement:
+      SELECT dingo.Company
+}
+
+query selectMainEquipments {
+  description: "Select all main equipments"
+  statement:
+      SELECT dingo.MainEquipment
+}
+
+query selectObservations {
+  description: "Select all components"
+  statement:
+      SELECT dingo.Component
+}
+
+query selectDingoComponents {
+  description: "Select all components under Dingo ownership"
+  statement:
+      SELECT dingo.Component
+          WHERE (owner == "resource:dingo.Company#Dingo")
+}
+
+query selectInputComponents {
+  description: "Select all components under inputted ownership"
+  statement:
+      SELECT dingo.Component
+          WHERE (owner == /*"resource:dingo.Company#" + */ _$owner)
+}
+
+query selectTranscations {
+  description: "Select all transactions"
+  statement:
+      SELECT dingo.attachComponentToME
+}
+
+query selectTransactionsForDingo {
+  description: "Select all transactions related to Dingo"
+  statement:
+      SELECT dingo.attachComponentToME
+          WHERE ((equipment.owner == "resource:dingo.Company#Dingo") AND (component.owner == "resource:dingo.Company#Dingo"))
+}
+
+query selectTransactionsForInput {
+  description: "Select all transactions related to input"
+  statement:
+      SELECT dingo.attachComponentToME
+          WHERE ((equipment.owner == _$owner) AND (component.owner == _$owner))
+}
